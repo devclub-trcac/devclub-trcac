@@ -1,102 +1,1103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Club TRCAC - Coming Soon</title>
+    <title>Dev Club | TRCAC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="../assets/dev Logo.png">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#020617', // Darker slate
+                            accent: '#06b6d4', // Cyan
+                            secondary: '#8b5cf6', // Violet
+                            surface: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* CSS Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            height: 100vh;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            
-            /* NIGHT SKY BACKGROUND SETUP */
-            background-color: #050a19; /* Deep dark blue base */
-            /* We create stars using multiple layers of radial gradients.
-               Different sizes and opacities create depth.
-            */
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 200px 200px, 250px 250px, 150px 150px, 300px 300px;
-            /*Slow animation to make stars drift */
-            animation: drift 60s linear infinite;
+            background-color: #020617;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        /* The Canvas sits behind everything */
+        #tech-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
-        /* Container for the main content */
-        .content-box {
-            padding: 3rem;
-            /* Optional: A very subtle glow behind the text area to make it pop */
-            background: radial-gradient(rgba(26, 37, 75, 0.4) 0%, transparent 70%);
-            border-radius: 20px;
-            animation: fadeInUp 1.5s ease-out;
+        /* Glassmorphism Utilities */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* LOGO STYLING */
-        .main-logo {
-            /* Ensures the image itself is centered and sized appropriately */
-            max-width: 250px; /* Adjust this value based on your actual logo size */
-            height: auto;
-            margin-bottom: 1.5rem;
-            /* Optional: Adds a subtle glow/shadow around the logo image itself */
-            filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
+        .neon-text {
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
         }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+        /* --- NEW HERO STYLES --- */
 
-        /* Typography */
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            /* Makes text look like it's glowing */
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
-        }
+/* Holographic Scanline Animation */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(500px);
+        opacity: 0;
+    }
+}
+.animate-scanline {
+    animation: scanline 3s linear infinite;
+    background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.8), transparent);
+    height: 20px;
+}
 
-        p {
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #a5b4fc; /* Slightly lighter blue-white */
-        }
+/* Subtle Text Glitch Effect on Hover */
+.glitch-text {
+    position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.glitch-text:hover::before {
+    left: 2px;
+    text-shadow: -1px 0 #06b6d4;
+    animation: glitch-anim-1 0.3s infinite linear alternate-reverse;
+    opacity: 1;
+}
+.glitch-text:hover::after {
+    left: -2px;
+    text-shadow: 1px 0 #8b5cf6;
+    animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
+    opacity: 1;
+}
 
-        /* Animations */
-        /* Moves the background stars slowly */
-        @keyframes drift {
-            from { background-position: 0 0, 0 0, 0 0, 0 0; }
-            to { background-position: -600px 600px, 600px -600px, -300px 300px, 300px 300px; }
-        }
-
-        /* Fades the content in from the bottom */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .main-logo { max-width: 180px; }
-        }
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(10% 0 80% 0); }
+    100% { clip-path: inset(5% 0 90% 0); }
+}
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(80% 0 5% 0); }
+    100% { clip-path: inset(90% 0 2% 0); }
+}
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <div class="content-box">
-        <img src="assets/dev Logo.png" alt="Dev Club TRCAC Logo" class="main-logo">
+    <canvas id="tech-canvas"></canvas>
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center border border-brand-accent/30 group-hover:bg-brand-accent/20 transition-">
+                    <img src="./assets/dev Logo.png" alt="Dev_clu`b Logo" class="w-7 h-7 object-contain">
+                    </div>
+
+                    <div class="flex flex-col">
+                        <span class="font-mono font-bold text-xl text-white tracking-wider leading-none">DEV<span class="text-brand-accent">CLUB</span></span>
+                        <span class="text-[10px] text-slate-400 tracking-widest uppercase">TRCAC</span>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <a href="#home" class="text-slate-300 hover:text-white hover:bg-white/5 px-4 py-2 rounded-md text-sm font-medium transition-all">Home</a>
+                        <a href="#about" class="text-slate-300 hover:text-white hover:bg-white/5 px-4 py-2 rounded-md text-sm font-medium transition-all">About</a>
+                        <a href="#domains" class="text-slate-300 hover:text-white hover:bg-white/5 px-4 py-2 rounded-md text-sm font-medium transition-all">Domains</a>
+                        <a href="#projects" class="text-slate-300 hover:text-white hover:bg-white/5 px-4 py-2 rounded-md text-sm font-medium transition-all">Projects</a>
+                        <a href="#timeline" class="text-slate-300 hover:text-white hover:bg-white/5 px-4 py-2 rounded-md text-sm font-medium transition-all">Roadmap</a>
+                        <a href="#members" class="text-slate-300 hover:text-white hover:bg-white/5 px-4 py-2 rounded-md text-sm font-medium transition-all">Team</a>
+                        <a href="#contact" class="ml-4 bg-brand-accent text-brand-dark hover:bg-cyan-300 px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]">Join Us</a>
+                    </div>
+                </div>
+
+                <div class="-mr-2 flex lg:hidden">
+                    <button type="button" onclick="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-white/10 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="lg:hidden hidden bg-brand-dark border-b border-white/10" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#projects" class="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#timeline" class="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Roadmap</a>
+                <a href="#members" class="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Team</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-[90vh] flex items-center justify-center pt-20 relative px-4 overflow-hidden">
         
-        <h1>Dev Club TRCAC</h1>
-        <p>Coming Soon</p>
-    </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-accent/20 rounded-full blur-[120px] -z-20 md:opacity-50 opacity-20"></div>
 
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            <div class="lg:col-span-7 text-left animate-fade-in-up">  
+                <h1 class="text-5xl sm:text-7xl font-extrabold text-white mb-6 leading-tight glitch-text" data-text="Code the Impossible.">
+                    Code the <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent via-blue-400 to-brand-secondary neon-text">Impossible.</span>
+                </h1>
+                
+                <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-xl leading-relaxed">
+                    TRCAC's premier technical playground. We are the <span class="text-brand-accent">architects</span> of the digital future, turning caffeine into code and ideas into reality.
+                </p>
+                
+                <div class="mt-10 flex flex-wrap gap-4">
+                    <a href="#projects" class="group relative px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]">
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                        <span class="relative flex items-center gap-2">Explore Projects <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i></span>
+                    </a>
+                    <a href="https://discord.gg" target="_blank" class="px-8 py-4 rounded-lg border-2 border-slate-700 hover:border-brand-secondary text-white font-medium transition-all flex items-center gap-2 bg-slate-900/50 hover:bg-brand-secondary/10">
+                        <i class="fa-brands fa-discord text-xl"></i> Join Community
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative hidden lg:block h-[600px] perspective-[1000px]">
+                
+                <div class="relative w-full h-full animate-float transform-style-3d rotate-y-[-10deg] rotate-x-[5deg]">
+                    
+                    <div class="absolute inset-10 bg-gradient-to-tr from-brand-accent/10 to-brand-secondary/10 rounded-3xl blur-xl border border-brand-accent/20"></div>
+
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[70%] glass-card rounded-2xl border-t-2 border-l-2 border-brand-accent/40 overflow-hidden shadow-2xl shadow-brand-accent/20 z-10">
+                        
+                        <div class="absolute top-0 left-0 w-full animate-scanline z-20"></div>
+                        
+                        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/80 border-b border-brand-accent/20">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-slate-700/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-slate-700/50"></div>
+                            </div>
+                            <div class="text-xs font-mono text-brand-accent/70 flex items-center gap-2">
+                                <i class="fa-solid fa-satellite-dish animate-pulse"></i> LIVE TERMINAL
+                            </div>
+                        </div>
+
+                        <div class="p-6 font-mono text-sm relative h-full">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgamlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMSIgZmlsbD0icmdiYSg2LCAxODIsIDIxMiwgMC4xKSIvPjwvZz48L3N2Zz4=')] opacity-50"></div>
+                            
+                            <div class="space-y-4 relative z-10">
+                                <div class="flex items-center gap-2 text-green-400">
+                                    <span>$</span>
+                                    <span class="typing-demo">initiate_dev_protocol.sh</span>
+                                </div>
+                                <div class="text-slate-500 pl-4 border-l border-slate-700">
+                                    <p>> Loading modules...</p>
+                                    <p>> Connecting to TRCAC mainframe...</p>
+                                    <p class="text-yellow-300">> [WARNING] High levels of creativity detected.</p>
+                                </div>
+                                
+                                <div class="mt-6 p-4 bg-slate-900/80 rounded-lg border border-brand-accent/20 relative overflow-hidden group">
+                                     <div class="absolute -inset-2 bg-gradient-to-r from-brand-accent/10 via-purple-500/10 to-transparent blur-md group-hover:opacity-100 opacity-50 transition-opacity"></div>
+                                    
+                                    <div class="relative z-10 text-xs text-slate-300 leading-6">
+                                        <p><span class="text-purple-400">const</span> <span class="text-blue-400">student</span> = {</p>
+                                        <p class="pl-4">passion: <span class="text-orange-400">true</span>,</p>
+                                        <p class="pl-4">curiosity: <span class="text-brand-accent">Infinity</span></p>
+                                        <p>};</p>
+                                        <p class="mt-2"><span class="text-purple-400">await</span> DevClub.<span class="text-blue-400">empower</span>(student);</p>
+                                        <span class="inline-block w-2 h-4 bg-brand-accent animate-pulse align-middle ml-1"></span>
+                                    </div>
+                                </div>
+
+                                <div class="text-brand-accent mt-4">
+                                    > Status: <span class="text-green-400 font-bold animate-pulse">READY_TO_DEPLOY</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-[15%] right-[5%] glass-card p-3 rounded-lg border border-purple-500/30 animate-float animation-delay-1000 z-20">
+                        <i class="fa-solid fa-network-wired text-purple-400 text-xl"></i>
+                    </div>
+                    <div class="absolute bottom-[20%] left-[5%] glass-card p-3 rounded-lg border border-blue-500/30 animate-float animation-delay-2000 z-20">
+                        <i class="fa-solid fa-code-branch text-blue-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="order-2 lg:order-1">
+                    <div class="rounded-xl overflow-hidden border border-slate-700 bg-[#0f172a] shadow-2xl shadow-brand-accent/10">
+                        <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="ml-4 text-xs text-slate-400 font-mono">mission.txt — DevClub</div>
+                        </div>
+                        <div class="p-6 font-mono text-sm leading-relaxed text-slate-300">
+                            <p><span class="text-purple-400">const</span> <span class="text-brand-accent">whoWeAre</span> = <span class="text-yellow-300">"TRCAC Tech Community"</span>;</p>
+                            <br>
+                            <p class="text-slate-400">// We bridge the gap between theory and reality.</p>
+                            <p>Dev Club isn't just a club; it's a sandbox. While textbooks teach you syntax, we teach you how to <span class="text-white border-b border-brand-accent border-dashed">ship products</span>. </p>
+                            <br>
+                            <p>From <span class="text-green-400">debugging</span> 2 AM errors to celebrating a successful deployment, we are the ecosystem where students evolve into developers.</p>
+                            <br>
+                            <p><span class="text-purple-400">return</span> <span class="text-brand-accent">FutureInnovators</span>;</p>
+                            <span class="animate-pulse inline-block w-2 h-4 bg-brand-accent align-middle ml-1"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-8 mt-8 pl-2">
+                        <div class="border-l-2 border-brand-accent pl-4">
+                            <h4 class="text-3xl font-bold text-white">50+</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Live Projects</p>
+                        </div>
+                        <div class="border-l-2 border-brand-secondary pl-4">
+                            <h4 class="text-3xl font-bold text-white">12</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Hackathons Won</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 grid grid-cols-2 gap-4 relative">
+                    <div class="absolute inset-0 bg-brand-accent/5 blur-3xl rounded-full -z-10"></div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-brand-accent/50 hover:bg-brand-accent/10 transition-all duration-300 group cursor-default">
+                        <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-lightbulb text-2xl text-yellow-400"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">Innovation</h3>
+                        <p class="text-slate-400 text-xs mt-2">Thinking beyond the syllabus.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 group cursor-default mt-8">
+                        <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-users text-2xl text-blue-400"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">Community</h3>
+                        <p class="text-slate-400 text-xs mt-2">Stronger together.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-red-500/50 hover:bg-red-500/10 transition-all duration-300 group cursor-default">
+                        <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-rocket text-2xl text-red-400"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">Growth</h3>
+                        <p class="text-slate-400 text-xs mt-2">Continuous upskilling.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all duration-300 group cursor-default mt-8">
+                        <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-trophy text-2xl text-purple-400"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">Excellence</h3>
+                        <p class="text-slate-400 text-xs mt-2">Setting high standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="about-trcac" class="py-24 relative overflow-hidden bg-[#020617] border-t border-white/5 group" onmousemove="handleTrcacMove(event)">
+        
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+
+        <div class="absolute inset-0 z-0 pointer-events-none transition-opacity duration-500"
+             style="background: radial-gradient(800px circle at var(--x) var(--y), rgba(6,182,212,0.08), transparent 40%);">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="space-y-8 animate-fade-in-up">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-brand-accent font-mono text-xs tracking-[0.2em] uppercase mb-4">
+                            <i class="fa-solid fa-server animate-pulse"></i> Base of Operations
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                            TRCAC <br> 
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-600">The Mainframe.</span>
+                        </h2>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-r-2xl border-l-4 border-brand-accent bg-slate-900/40 backdrop-blur-sm transform transition-transform hover:translate-x-2 duration-300">
+                        <p class="text-slate-300 text-lg leading-relaxed">
+                            <strong class="text-white">Thakur Ramnarayan College of Arts & Commerce</strong> is not just an institution; it is the hardware running our ambitions. Located in the tech-heart of Dahisar, it provides the ecosystem where innovation meets execution.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-900/80 border border-white/5 rounded-lg hover:border-brand-accent/30 transition-colors group/spec cursor-default">
+                            <div class="text-[10px] text-slate-500 font-mono uppercase mb-1">Architecture</div>
+                            <div class="text-lg font-bold text-white group-hover/spec:text-brand-accent transition-colors">State-of-the-Art</div>
+                        </div>
+                        <div class="p-4 bg-slate-900/80 border border-white/5 rounded-lg hover:border-brand-accent/30 transition-colors group/spec cursor-default">
+                            <div class="text-[10px] text-slate-500 font-mono uppercase mb-1">Network</div>
+                            <div class="text-lg font-bold text-white group-hover/spec:text-brand-accent transition-colors">High-Speed Labs</div>
+                        </div>
+                        <div class="p-4 bg-slate-900/80 border border-white/5 rounded-lg hover:border-brand-accent/30 transition-colors group/spec cursor-default">
+                            <div class="text-[10px] text-slate-500 font-mono uppercase mb-1">Modules</div>
+                            <div class="text-lg font-bold text-white group-hover/spec:text-brand-accent transition-colors">BSc IT / CS</div>
+                        </div>
+                        <div class="p-4 bg-slate-900/80 border border-white/5 rounded-lg hover:border-brand-accent/30 transition-colors group/spec cursor-default">
+                            <div class="text-[10px] text-slate-500 font-mono uppercase mb-1">Status</div>
+                            <div class="text-lg font-bold text-green-400 flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Operational
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://trcac.org.in" target="_blank" class="inline-flex items-center gap-3 text-white font-bold hover:text-brand-accent transition-colors group mt-4">
+                        <span>ACCESS OFFICIAL PORTAL</span>
+                        <i class="fa-solid fa-arrow-right-long group-hover:translate-x-2 transition-transform"></i>
+                    </a>
+                </div>
+
+                <div class="relative h-[500px] w-full perspective-[1000px] group/visual">
+                    
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-accent/10 blur-[80px] rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-secondary/10 blur-[80px] rounded-full"></div>
+
+                    <div class="relative w-full h-full bg-slate-900 rounded-2xl overflow-hidden border border-white/10 shadow-2xl transform transition-transform duration-700 group-hover/visual:rotate-y-2 group-hover/visual:rotate-x-2">
+                        
+                        <img src="../assets/banner_entrance.JPG" 
+                             alt="TRCAC Building" 
+                             class="w-full h-full object-cover opacity-50 grayscale group-hover/visual:grayscale-0 group-hover/visual:opacity-80 transition-all duration-700 scale-105 group-hover/visual:scale-100">
+                        
+                        <div class="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.1)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+
+                        <div class="absolute top-0 left-0 w-full h-1 bg-brand-accent/50 shadow-[0_0_15px_#06b6d4] animate-scanline pointer-events-none"></div>
+
+                        <div class="absolute top-4 left-4 flex gap-1">
+                            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+
+                        <div class="absolute bottom-6 right-6 text-right">
+                            <p class="text-[10px] text-brand-accent font-mono">COORDS: 19.25° N, 72.86° E</p>
+                            <p class="text-2xl font-bold text-white tracking-widest">SECTOR-D</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute -z-10 top-6 -right-6 w-full h-full border border-brand-accent/20 rounded-2xl bg-transparent transition-transform duration-500 group-hover/visual:translate-x-2 group-hover/visual:-translate-y-2"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <script>
+        function handleTrcacMove(e) {
+            const section = document.getElementById('about-trcac');
+            const rect = section.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top;
+            
+            section.style.setProperty('--x', `${x}px`);
+            section.style.setProperty('--y', `${y}px`);
+        }
+    </script>
+
+    <section id="domains" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-accent font-mono text-sm tracking-widest uppercase">What we do</span>
+                <h2 class="text-4xl font-bold text-white mt-2">Technical Domains</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group glass-card p-8 rounded-2xl hover:border-brand-accent/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-react text-brand-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Full Stack Web</h3>
+                    <p class="text-slate-400 text-sm mb-4">MERN Stack, Next.js, and serverless architectures. We build the web of tomorrow.</p>
+                </div>
+
+                <div class="group glass-card p-8 rounded-2xl hover:border-purple-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-brain text-purple-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI & ML</h3>
+                    <p class="text-slate-400 text-sm mb-4">Data analysis, Neural Networks, and NLP using Python, TensorFlow and PyTorch.</p>
+                </div>
+
+                <div class="group glass-card p-8 rounded-2xl hover:border-green-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-secret text-green-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cyber Security</h3>
+                    <p class="text-slate-400 text-sm mb-4">Ethical Hacking, CTFs, and Network Defense. Learn to protect the digital realm.</p>
+                </div>
+
+                <div class="group glass-card p-8 rounded-2xl hover:border-orange-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-mobile-screen text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">App Development</h3>
+                    <p class="text-slate-400 text-sm mb-4">Cross-platform development using Flutter and React Native. Code once, run everywhere.</p>
+                </div>
+
+                <div class="group glass-card p-8 rounded-2xl hover:border-pink-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-paintbrush text-pink-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">UI/UX Design</h3>
+                    <p class="text-slate-400 text-sm mb-4">Figma mastery, prototyping, and user research. We make tech look beautiful.</p>
+                </div>
+
+                <div class="group glass-card p-8 rounded-2xl hover:border-yellow-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gamepad text-yellow-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Game Dev</h3>
+                    <p class="text-slate-400 text-sm mb-4">Unity and Unreal Engine. Physics, logic, and 3D modeling for immersive experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="members" class="py-24 relative overflow-hidden bg-brand-dark/50 border-t border-white/5">
+        
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgamlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMSIgZmlsbD0icmdiYSg2LCAxODIsIDIxMiwgMC4wNSkiLz48L2c+PC9zdmc+')] opacity-30"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <span class="text-brand-accent font-mono text-sm tracking-widest uppercase mb-4 block">Personnel Database</span>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">The Minds Behind The Machines</h2>
+            
+            <p class="text-slate-400 text-lg leading-relaxed mb-10">
+                Dev Club is powered by a collaboration between the Department of CS/IT faculty and a passionate team of student leaders. We are the architects, the debuggers, and the visionaries.
+            </p>
+
+            <div class="relative inline-block group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-brand-accent to-brand-secondary rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <a href="./pages/team.html" class="relative flex items-center gap-4 bg-slate-900 text-white font-bold py-4 px-12 rounded-lg border border-white/10 hover:bg-slate-800 transition-all">
+                    <span>View Full Team</span>
+                    <i class="fa-solid fa-arrow-right-long text-brand-accent group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="flex justify-center gap-12 mt-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="text-center">
+                    <i class="fa-solid fa-user-tie text-2xl mb-2 text-yellow-500"></i>
+                    <p class="text-xs font-mono uppercase">Faculty</p>
+                </div>
+                <div class="text-center">
+                    <i class="fa-solid fa-users text-2xl mb-2 text-brand-accent"></i>
+                    <p class="text-xs font-mono uppercase">Heads</p>
+                </div>
+                <div class="text-center">
+                    <i class="fa-solid fa-hand-fist text-2xl mb-2 text-purple-500"></i>
+                    <p class="text-xs font-mono uppercase">Core</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 bg-brand-surface/30 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-white">Project Showcase</h2>
+                    <p class="text-slate-400 mt-2">Real apps built by our members.</p>
+                </div>
+                <a href="/./pages/comingsoon.html" class="text-brand-accent text-sm font-bold hover:underline">View GitHub <i class="fa-solid fa-external-link-alt ml-1"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card rounded-xl overflow-hidden group">
+                    <div class="h-48 bg-slate-800 relative group-hover:opacity-90 transition-opacity">
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-600">
+                            <i class="fa-solid fa-image text-4xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/50 backdrop-blur px-2 py-1 rounded text-xs text-green-400 font-mono border border-green-500/30">Live</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Campus Connect App</h3>
+                        <p class="text-slate-400 text-sm mb-4">A Flutter-based application for college notices, attendance tracking, and peer chat.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-1 rounded border border-blue-500/20">Flutter</span>
+                            <span class="text-xs bg-orange-500/10 text-orange-400 px-2 py-1 rounded border border-orange-500/20">Firebase</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-slate-300 hover:text-white text-sm"><i class="fa-brands fa-github"></i> Code</a>
+                            <a href="#" class="text-slate-300 hover:text-white text-sm"><i class="fa-solid fa-rocket"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="glass-card rounded-xl overflow-hidden group">
+                    <div class="h-48 bg-slate-800 relative group-hover:opacity-90 transition-opacity">
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-600">
+                            <i class="fa-solid fa-robot text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">AI Attendance System</h3>
+                        <p class="text-slate-400 text-sm mb-4">Face recognition based attendance system using Python OpenCV deployed on Raspberry Pi.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-1 rounded border border-yellow-500/20">Python</span>
+                            <span class="text-xs bg-gray-500/10 text-gray-400 px-2 py-1 rounded border border-gray-500/20">OpenCV</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-slate-300 hover:text-white text-sm"><i class="fa-brands fa-github"></i> Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-20 animate-fade-in">
+                Your Journey to <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">Dev Club</span>
+            </h2>
+
+            <div class="relative max-w-4xl mx-auto min-h-[800px]" id="roadmap-container">
+                
+                <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-1 bg-slate-800 rounded-full"></div>
+                
+                <div id="progress-line" class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 w-1 bg-gradient-to-b from-brand-accent to-brand-secondary rounded-full shadow-[0_0_15px_#06b6d4] transition-all duration-100 ease-out h-0"></div>
+
+                <div class="relative z-10 mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-center w-full timeline-item">
+                    
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] mb-4 md:mb-0 text-left md:text-right transition-all duration-700 opacity-0 translate-y-10 reveal-element">
+                        <h3 class="text-xl md:text-2xl font-bold text-white">The Orientation</h3>
+                        <div class="text-brand-accent font-mono text-sm mb-2">August 1st Week</div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Attend the grand intro session. We showcase our past projects, introduce the domains, and explain the club hierarchy.
+                        </p>
+                    </div>
+                    
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-8 md:h-8 rounded-full bg-slate-900 border-2 border-brand-accent shadow-[0_0_10px_#06b6d4] z-20 flex items-center justify-center mt-1 md:mt-0 top-0 md:top-auto">
+                        <div class="hidden md:block w-3 h-3 bg-brand-accent rounded-full"></div>
+                    </div>
+
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] transition-all duration-700 delay-100 opacity-0 translate-y-10 reveal-element">
+                        <div class="glass-card p-4 rounded-xl border-l-4 border-brand-accent hover:bg-white/5 transition-colors">
+                            <i class="fa-solid fa-person-chalkboard text-2xl text-slate-300 mb-2"></i>
+                            <div class="text-xs text-slate-500 font-mono">STATUS: OPEN FOR ALL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 mb-16 md:mb-24 flex flex-col md:flex-row-reverse justify-between items-center w-full timeline-item">
+                    
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] mb-4 md:mb-0 text-left transition-all duration-700 opacity-0 translate-y-10 reveal-element">
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Registration & Tasks</h3>
+                        <div class="text-brand-secondary font-mono text-sm mb-2">August 2nd Week</div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Fill out the recruitment form. You will be given a small "Tech Task" based on your interest (e.g., Design a poster, Write a loop).
+                        </p>
+                    </div>
+
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-8 md:h-8 rounded-full bg-slate-900 border-2 border-brand-secondary shadow-[0_0_10px_#8b5cf6] z-20 flex items-center justify-center mt-1 md:mt-0 top-0 md:top-auto">
+                        <div class="hidden md:block w-3 h-3 bg-brand-secondary rounded-full"></div>
+                    </div>
+
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] md:text-right transition-all duration-700 delay-100 opacity-0 translate-y-10 reveal-element">
+                        <div class="glass-card p-4 rounded-xl border-l-4 md:border-l-0 md:border-r-4 border-brand-secondary hover:bg-white/5 transition-colors inline-block text-left">
+                            <i class="fa-solid fa-file-code text-2xl text-slate-300 mb-2"></i>
+                            <div class="text-xs text-slate-500 font-mono">NO CODING EXP REQUIRED</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-center w-full timeline-item">
+                     
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] mb-4 md:mb-0 text-left md:text-right transition-all duration-700 opacity-0 translate-y-10 reveal-element">
+                        <h3 class="text-xl md:text-2xl font-bold text-white">The Interview</h3>
+                        <div class="text-green-500 font-mono text-sm mb-2">August 3rd Week</div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            A casual conversation with the Core Committee. We test your logic, communication skills, and—most importantly—your curiosity.
+                        </p>
+                    </div>
+
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-8 md:h-8 rounded-full bg-slate-900 border-2 border-green-500 shadow-[0_0_10px_#22c55e] z-20 flex items-center justify-center mt-1 md:mt-0 top-0 md:top-auto">
+                        <div class="hidden md:block w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+
+                     <div class="w-full pl-12 md:pl-0 md:w-[45%] transition-all duration-700 delay-100 opacity-0 translate-y-10 reveal-element">
+                        <div class="glass-card p-4 rounded-xl border-l-4 border-green-500 hover:bg-white/5 transition-colors">
+                            <i class="fa-solid fa-users-viewfinder text-2xl text-slate-300 mb-2"></i>
+                            <div class="text-xs text-slate-500 font-mono">BE YOURSELF</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex flex-col md:flex-row-reverse justify-between items-center w-full timeline-item">
+                    
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] mb-4 md:mb-0 text-left transition-all duration-700 opacity-0 translate-y-10 reveal-element">
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Induction</h3>
+                        <div class="text-brand-accent font-mono text-sm mb-2">September 1st Week</div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Welcome to the family! Get your Dev Club badge, meet your mentors, and start working on your first live project.
+                        </p>
+                    </div>
+
+                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-8 md:h-8 rounded-full bg-slate-900 border-2 border-brand-accent shadow-[0_0_10px_#06b6d4] z-20 flex items-center justify-center mt-1 md:mt-0 top-0 md:top-auto">
+                        <i class="hidden md:block fa-solid fa-check text-brand-accent text-xs"></i>
+                    </div>
+
+                    <div class="w-full pl-12 md:pl-0 md:w-[45%] md:text-right transition-all duration-700 delay-100 opacity-0 translate-y-10 reveal-element">
+                         <div class="glass-card p-4 rounded-xl border-l-4 md:border-l-0 md:border-r-4 border-brand-accent hover:bg-white/5 transition-colors inline-block text-left">
+                            <i class="fa-solid fa-id-badge text-2xl text-slate-300 mb-2"></i>
+                            <div class="text-xs text-slate-500 font-mono">OFFICIAL MEMBER</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('roadmap-container');
+            const progressLine = document.getElementById('progress-line');
+            const revealElements = document.querySelectorAll('.reveal-element');
+
+            // 1. Line Filling Logic
+            function updateProgress() {
+                const rect = container.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Start filling when the top of the section hits 75% down the viewport
+                const start = rect.top - windowHeight * 0.75; 
+                const height = rect.height;
+                
+                // Calculate percentage
+                let percentage = 0;
+                if (start < 0) {
+                    percentage = (Math.abs(start) / height) * 100;
+                }
+                
+                // Clamp between 0 and 100
+                if (percentage > 100) percentage = 100;
+                if (rect.top > windowHeight) percentage = 0;
+
+                progressLine.style.height = `${percentage}%`;
+            }
+
+            // 2. Element Reveal Logic (Intersection Observer)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => observer.observe(el));
+
+            // Attach scroll listener
+            window.addEventListener('scroll', updateProgress);
+            // Trigger once on load
+            updateProgress();
+        });
+    </script>
+
+    <section id="events" class="py-24 relative overflow-hidden bg-[#020617]">
+        
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#020617] to-[#020617]"></div>
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-6">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Timeline Events</h2>
+                    <p class="text-slate-400 font-mono text-xs md:text-sm">/// ASSEMBLE_YOUR_SQUAD ///</p>
+                </div>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-purple-500 rounded-full animate-pulse shadow-[0_0_10px_#a855f7]"></span>
+                        <span class="text-xs text-purple-400 font-bold uppercase">Infinity War</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-slate-600 rounded-full"></span>
+                        <span class="text-xs text-slate-500 font-bold uppercase">Dormant</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <div class="lg:col-span-2 relative group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-orange-500 blur-2xl rounded-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
+                    
+                    <div class="relative h-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 overflow-hidden hover:border-purple-500/50 transition-colors">
+                        
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10 opacity-50"></div>
+                        
+                        <div class="flex flex-col md:flex-row items-center gap-8 h-full relative z-10">
+                            
+                            <div class="relative w-40 h-40 md:w-56 md:h-56 flex-shrink-0 flex items-center justify-center">
+                                <div class="absolute w-full h-full animate-[spin_10s_linear_infinite]">
+                                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full shadow-[0_0_15px_#a855f7] blur-[1px]"></div> <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full shadow-[0_0_15px_#3b82f6] blur-[1px]"></div> </div>
+                                <div class="absolute w-[80%] h-[80%] animate-[spin_8s_linear_infinite_reverse]">
+                                    <div class="absolute top-1/2 right-0 -translate-y-1/2 w-4 h-4 bg-red-500 rounded-full shadow-[0_0_15px_#ef4444] blur-[1px]"></div> <div class="absolute top-1/2 left-0 -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full shadow-[0_0_15px_#f97316] blur-[1px]"></div> </div>
+                                <div class="absolute w-[60%] h-[60%] animate-[spin_12s_linear_infinite]">
+                                    <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full shadow-[0_0_15px_#22c55e] blur-[1px]"></div> </div>
+                                
+                                <div class="relative z-10 text-yellow-600 drop-shadow-[0_0_25px_rgba(234,179,8,0.4)]">
+                                    <i> <img src="./assets/Thanos-Infinity.png" alt="Thanos" style="width: 62%; height: auto; text-align: center; padding-left: 25px;"></i>
+                                </div>
+                            </div>
+
+                            <div class="text-center md:text-left flex-grow">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-3">
+                                    <i class="fa-solid fa-gem"></i> Destiny Arrives
+                                </div>
+                                
+                                <h3 class="text-4xl md:text-6xl font-black text-white mb-2 tracking-tighter">
+                                    HACK<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-red-500">CRYPT</span>
+                                </h3>
+                                
+                                <p class="text-slate-300 text-sm md:text-base mb-6 leading-relaxed italic">
+                                    "Reality can be whatever you code." <br>
+                                    <span class="not-italic text-slate-400">Collect the stones, solve the ciphers, and snap away the competition.</span>
+                                </p>
+
+                                <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                                    <button class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold rounded-lg shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 group/btn">
+                                        <a href="https://trcac.org.in/hackcrypt/" target="_blank">
+                                        <i class="fa-solid fa-hand-sparkles group-hover/btn:animate-pulse"></i> SNAP TO REGISTER
+                                        </a>
+                                    </button>
+                                    <button class="w-full sm:w-auto px-8 py-3 bg-transparent border border-white/20 hover:border-white text-white font-bold rounded-lg transition-all">
+                                        <a link href="./pages/comingsoon.html">
+                                        ENDGAME PLAN
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group opacity-75 hover:opacity-100 transition-opacity">
+                    <div class="absolute inset-0 bg-blue-500/5 blur-lg rounded-3xl"></div>
+                    <div class="relative h-full bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 flex flex-col justify-center items-center text-center hover:border-blue-500/50 transition-colors">
+                        <div class="absolute top-4 right-4 text-slate-600"><i class="fa-solid fa-lock"></i></div>
+                        
+                        <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4 border border-blue-500/20 grayscale group-hover:grayscale-0 transition-all">
+                            <i class="fa-brands fa-react text-3xl text-blue-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-1">FullStack Camp</h4>
+                        <p class="text-xs text-slate-400 font-mono mb-4">/// TESSERACT_LOCKED ///</p>
+                        <span class="px-4 py-1 rounded bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest border border-slate-700">Coming Soon</span>
+                    </div>
+                </div>
+
+                <div class="relative group opacity-75 hover:opacity-100 transition-opacity">
+                    <div class="absolute inset-0 bg-yellow-500/5 blur-lg rounded-3xl"></div>
+                    <div class="relative h-full bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 flex flex-col justify-center items-center text-center hover:border-yellow-500/50 transition-colors">
+                        <div class="absolute top-4 right-4 text-slate-600"><i class="fa-solid fa-lock"></i></div>
+                        
+                        <div class="w-16 h-16 bg-yellow-500/10 rounded-2xl flex items-center justify-center mb-4 border border-yellow-500/20 grayscale group-hover:grayscale-0 transition-all">
+                            <i class="fa-solid fa-brain text-3xl text-yellow-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-1">Gen-AI Summit</h4>
+                        <p class="text-xs text-slate-400 font-mono mb-4">/// MIND_STONE_MISSING ///</p>
+                        <span class="px-4 py-1 rounded bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest border border-slate-700">Coming Soon</span>
+                    </div>
+                </div>
+
+                <div class="relative group opacity-75 hover:opacity-100 transition-opacity">
+                    <div class="absolute inset-0 bg-purple-500/5 blur-lg rounded-3xl"></div>
+                    <div class="relative h-full bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 flex flex-col justify-center items-center text-center hover:border-purple-500/50 transition-colors">
+                        <div class="absolute top-4 right-4 text-slate-600"><i class="fa-solid fa-lock"></i></div>
+                        
+                        <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-4 border border-purple-500/20 grayscale group-hover:grayscale-0 transition-all">
+                            <i class="fa-solid fa-gamepad text-3xl text-purple-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-1">Valorant Cup</h4>
+                        <p class="text-xs text-slate-400 font-mono mb-4">/// POWER_LEVEL_LOW ///</p>
+                        <span class="px-4 py-1 rounded bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest border border-slate-700">Coming Soon</span>
+                    </div>
+                </div>
+
+                <div class="relative group opacity-75 hover:opacity-100 transition-opacity">
+                    <div class="absolute inset-0 bg-red-500/5 blur-lg rounded-3xl"></div>
+                    <div class="relative h-full bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 flex flex-col justify-center items-center text-center hover:border-red-500/50 transition-colors">
+                        <div class="absolute top-4 right-4 text-slate-600"><i class="fa-solid fa-lock"></i></div>
+                        
+                        <div class="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4 border border-red-500/20 grayscale group-hover:grayscale-0 transition-all">
+                            <i class="fa-solid fa-robot text-3xl text-red-400"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-1">RoboWars</h4>
+                        <p class="text-xs text-slate-400 font-mono mb-4">/// REALITY_LOCKED ///</p>
+                        <span class="px-4 py-1 rounded bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest border border-slate-700">Coming Soon</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-24">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-white text-center mb-10">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="glass-card rounded-lg p-4 group">
+                    <summary class="text-white font-medium cursor-pointer list-none flex justify-between items-center">
+                        Do I need to know coding to join?
+                        <span class="transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-slate-400 mt-3 text-sm">Not at all! We recruit based on passion and willingness to learn. We have a 'Beginner' track specifically for first-year students.</p>
+                </details>
+                <details class="glass-card rounded-lg p-4 group">
+                    <summary class="text-white font-medium cursor-pointer list-none flex justify-between items-center">
+                        How much is the membership fee?
+                        <span class="transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-slate-400 mt-3 text-sm">Membership is completely free for all TRCAC students.</p>
+                </details>
+                <details class="glass-card rounded-lg p-4 group">
+                    <summary class="text-white font-medium cursor-pointer list-none flex justify-between items-center">
+                        Can Commerce/Arts students join?
+                        <span class="transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-slate-400 mt-3 text-sm">Yes! We need designers, content writers, and managers. If you have an interest in tech, you are welcome.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+        <section id="contact" class="py-24 relative overflow-hidden">
+        
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/10 rounded-full blur-[120px] -z-10"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            
+            <span class="text-green-500 font-mono text-sm tracking-[0.3em] uppercase animate-pulse">/// INCOMING TRANSMISSION ///</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Establish Connection</h2>
+            <p class="text-slate-400 mb-12 text-lg">
+                Skip the emails. Join the inner circle directly on the neural network.
+            </p>
+            
+            <div class="relative group max-w-lg mx-auto">
+                <div class="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                
+                <div class="relative glass-card p-10 rounded-3xl border border-green-500/30 flex flex-col items-center text-center overflow-hidden">
+                    
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
+
+                    <div class="relative w-24 h-24 mb-6 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-green-500 rounded-full opacity-20 animate-ping"></div>
+                        <div class="relative z-10 w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-700 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30">
+                            <i class="fa-brands fa-whatsapp text-4xl text-white"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2">Dev Club Official</h3>
+                    <p class="text-slate-400 text-sm mb-8 font-mono">Status: <span class="text-green-400">ONLINE</span> • 100+ Members</p>
+
+                    <a href="https://chat.whatsapp.com/YOUR_ACTUAL_GROUP_LINK_HERE" target="_blank" 
+                       class="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 group/btn">
+                        <span>JOIN SERVER</span>
+                        <i class="fa-solid fa-arrow-right-long group-hover/btn:translate-x-1 transition-transform"></i>
+                    </a>
+
+                    <p class="mt-6 text-[10px] text-slate-500 font-mono uppercase tracking-wider">
+                        Response Time: &lt; 15 Minutes
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-20 border-t border-white/5 pt-10">
+                <p class="text-slate-500 text-sm mb-6">Or tap into other frequencies</p>
+                <div class="flex justify-center gap-8">
+                    <a href="https://www.instagram.com/devclubtrcac?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="group flex flex-col items-center gap-2 text-slate-500 hover:text-pink-500 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-pink-500/20 transition-all">
+                            <i class="fa-brands fa-instagram text-xl"></i>
+                        </div>
+                    </a>
+                    <a href=".//pages/comingsoon.html" class="group flex flex-col items-center gap-2 text-slate-500 hover:text-blue-500 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-blue-500/20 transition-all">
+                            <i class="fa-brands fa-linkedin text-xl"></i>
+                        </div>
+                    </a>
+                    <a href=".//pages/comingsoon.html" class="group flex flex-col items-center gap-2 text-slate-500 hover:text-white transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/20 transition-all">
+                            <i class="fa-brands fa-github text-xl"></i>
+                        </div>
+                    </a>
+                    <a href=".//pages/comingsoon.html" class="group flex flex-col items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-indigo-500/20 transition-all">
+                            <i class="fa-brands fa-discord text-xl"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark py-8 border-t border-slate-800 text-center relative z-10">
+        <p class="text-slate-600 text-sm">&copy; 2024 Dev Club. Thakur Ramnarayan College of Arts and Commerce.</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('tech-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        // Mouse state
+        const mouse = { x: -1000, y: -1000 };
+
+        // Configuration
+        const spacing = 35; // Space between dots
+        const baseRadius = 1.2;
+        const hoverRadius = 120; // Radius of mouse influence
+
+        // Resize Canvas
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        // Initialize Grid of Dots
+        function initParticles() {
+            particles = [];
+            for (let x = 0; x < width; x += spacing) {
+                for (let y = 0; y < height; y += spacing) {
+                    particles.push({
+                        x: x,
+                        y: y,
+                        originX: x,
+                        originY: y,
+                        color: 'rgba(148, 163, 184, 0.15)' // Default faint slate
+                    });
+                }
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                // Calculate distance from mouse
+                const dx = mouse.x - p.x;
+                const dy = mouse.y - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                let size = baseRadius;
+                let color = 'rgba(148, 163, 184, 0.15)'; // Default
+
+                // Interaction Logic
+                if (distance < hoverRadius) {
+                    // Brighten and enlarge based on proximity
+                    const intensity = 1 - (distance / hoverRadius);
+                    size = baseRadius + (intensity * 2.5); // Grow up to 3.5x
+                    // Glow color (Cyan)
+                    color = `rgba(6, 182, 212, ${0.2 + intensity * 0.8})`; 
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Event Listeners
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Init
+        resize();
+        animate();
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

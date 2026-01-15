@@ -1,0 +1,100 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Club TRCAC - Coming Soon</title>
+    <style>
+        /* CSS Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            
+            /* NIGHT SKY BACKGROUND SETUP */
+            background-color: #050a19; /* Deep dark blue base */
+            /* We create stars using multiple layers of radial gradients.
+               Different sizes and opacities create depth.
+            */
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px, 250px 250px, 150px 150px, 300px 300px;
+            /*Slow animation to make stars drift */
+            animation: drift 60s linear infinite;
+        }
+
+        /* Container for the main content */
+        .content-box {
+            padding: 3rem;
+            /* Optional: A very subtle glow behind the text area to make it pop */
+            background: radial-gradient(rgba(26, 37, 75, 0.4) 0%, transparent 70%);
+            border-radius: 20px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        /* LOGO STYLING */
+        .main-logo {
+            /* Ensures the image itself is centered and sized appropriately */
+            max-width: 250px; /* Adjust this value based on your actual logo size */
+            height: auto;
+            margin-bottom: 1.5rem;
+            /* Optional: Adds a subtle glow/shadow around the logo image itself */
+            filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            /* Makes text look like it's glowing */
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+        }
+
+        p {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #a5b4fc; /* Slightly lighter blue-white */
+        }
+
+        /* Animations */
+        /* Moves the background stars slowly */
+        @keyframes drift {
+            from { background-position: 0 0, 0 0, 0 0, 0 0; }
+            to { background-position: -600px 600px, 600px -600px, -300px 300px, 300px 300px; }
+        }
+
+        /* Fades the content in from the bottom */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .main-logo { max-width: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-box">
+        <img src="../assets/dev Logo.png" alt="Dev Club TRCAC Logo" class="main-logo">
+        
+        <h1>Dev Club TRCAC</h1>
+        <p>Coming Soon</p>
+    </div>
+
+
+</body></html>

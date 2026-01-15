@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Dev Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/dev Logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { dark: '#020617', accent: '#06b6d4', secondary: '#8b5cf6' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #020617; color: #e2e8f0; overflow-x: hidden; }
+        #tech-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        
+        /* Glass Navigation */
+        .glass-nav { 
+            background: rgba(2, 6, 23, 0.95); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        /* Card Styles */
+        .tech-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* Ensures grid cards match height */
+        }
+        
+        /* Interactive Glow Border */
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, transparent, var(--glow-color, #06b6d4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .tech-card:hover::before { opacity: 1; }
+        .tech-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 30px -5px var(--glow-color, rgba(6, 182, 212, 0.2)); 
+        }
+
+        /* Profile Pictures */
+        .profile-img {
+            z-index: 10;
+            border: 3px solid rgba(255,255,255,0.1);
+            background: #0f172a;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans">
+
+    <canvas id="tech-canvas"></canvas>
+
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-2 text-white hover:text-brand-accent transition-colors group p-2">
+                <i class="fa-solid fa-chevron-left group-hover:-translate-x-1 transition-transform text-sm"></i>
+                <span class="font-bold text-sm">Home</span>
+            </a>
+            <div class="flex items-center gap-2">
+                 <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                 <span class="font-mono text-[10px] md:text-xs text-green-400"> ONLINE</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-28 pb-12 px-4 text-center animate-fade-in-up">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
+            Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">Team</span>
+        </h1>
+        <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+            The hierarchy of innovation. From Faculty Mentors to the Student Core.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 pb-24 space-y-24 relative z-10">
+
+        <section class="animate-fade-in-up" style="animation-delay: 0.1s;">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-[1px] bg-yellow-500/30 flex-grow"></div>
+                <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-star text-yellow-500"></i> FACULTY MENTORS
+                </h2>
+                <div class="h-[1px] bg-yellow-500/30 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+                
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left h-full" style="--glow-color: #eab308;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Sandeep+Kamble&background=EAB308&color=fff&size=200" 
+                                 class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-3 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-yellow-500 font-bold mb-1 tracking-wider">HEAD OF DEPARTMENT</div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Mr. Sandeep Kamble</h3>
+                            <p class="text-slate-300 text-sm italic mb-2">"Leadership is the capacity to translate vision into reality."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left h-full" style="--glow-color: #eab308;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Raashid+Shaikh&background=EAB308&color=fff&size=200" 
+                                 class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-3 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-yellow-500 font-bold mb-1 tracking-wider">PROGRAMME COORDINATOR</div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Mr. Raashid Shaikh</h3>
+                            <p class="text-slate-300 text-sm italic mb-2">"Excellence is a continuous process and not an accident."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left h-full" style="--glow-color: #eab308;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Komal+Jambhale&background=EAB308&color=fff&size=200" 
+                                 class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-3 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Ms. Komal Jambhale</h3>
+                            <p class="text-slate-300 text-sm italic mb-2">"Innovation distinguishes between a leader and a follower."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left h-full" style="--glow-color: #eab308;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Smriti+Dubey&background=EAB308&color=fff&size=200" 
+                                 class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-3 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Ms. Smriti Dubey</h3>
+                            <p class="text-slate-300 text-sm italic mb-2">"The best way to predict your future is to create it."</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="more-faculty" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 transition-all duration-500 ease-in-out origin-top">
+                
+                                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Sumeet+Rathod&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Mr. Sumeet Rathod</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Excellence is the result of disciplined effort, sustained over time."</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Prachi+Singh&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Prachi Singh</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Consistency turns ordinary actions into extraordinary results."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Sumeet+Rathod&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Mr. Vishal Sharma</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Greatness is the outcome of small things done right, repeatedly."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Aarya+Joshi&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Aarya Joshi</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Coding is the poetry of logic."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Aman+Joshi&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Mr. Aman Joshi</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Technology is best when it brings people together."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Sreedevi+VS&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Dr. Sreedevi VS</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Mathematics is the language of the universe."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Arjun+Sah&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Mr. Arjun Sah</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Building the future, one bit at a time."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Sangeeta+Yadav&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Sangeeta Yadav</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Empowering young minds with technology."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Rashmitha+Shettigar&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Rashmitha Shettigar</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Debugging code, upgrading minds."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Nikita+Vishwakarma&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Nikita Vishwakarma</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Technology is the tool, you are the driver."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Gauri+Salunke&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Gauri Salunke</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Simplicity is the soul of efficiency."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Swapna+Gawde&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ms. Swapna Gawde</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Transforming logic into innovation."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Chirag+Deora&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Mr. Chirag Deora</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Coding today for a better tomorrow."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Prasoon+Pandey&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Mr. Prasoon Pandey</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Bridging the gap between business and tech."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-full">
+                    <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left h-full" style="--glow-color: #fbbf24;">
+                        <div class="relative flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name=Rakesh+Koender&background=fbbf24&color=fff&size=200" 
+                                 class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover profile-img border-yellow-500/30 group-hover:border-yellow-500 transition-colors">
+                            <div class="absolute -inset-2 border border-dashed border-yellow-500/30 rounded-full animate-spin-slow"></div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-[10px] md:text-xs text-yellow-500 font-bold mb-1 tracking-wider">ASSISTANT PROFESSOR</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Dr. Rakesh Koender</h3>
+                            <p class="text-slate-300 text-xs md:text-sm italic mb-2">"Researching the boundaries of possibility."</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-12">
+                <button onclick="toggleFaculty()" class="group relative inline-flex items-center gap-2 px-8 py-3 bg-slate-900 border border-yellow-500/50 rounded-full text-yellow-500 font-bold hover:bg-yellow-500/10 transition-all cursor-pointer">
+                    <span id="view-more-text">View All Faculty</span>
+                    <i id="view-more-icon" class="fa-solid fa-chevron-down group-hover:translate-y-1 transition-transform"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="animate-fade-in-up" style="animation-delay: 0.2s;">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-[1px] bg-brand-accent/30 flex-grow"></div>
+                <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-shield-halved text-brand-accent"></i> STUDENT COUNCIL
+                </h2>
+                <div class="h-[1px] bg-brand-accent/30 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div class="tech-card group rounded-2xl p-8 flex flex-col items-center text-center" style="--glow-color: #06b6d4;">
+                    <div class="relative w-32 h-32 md:w-36 md:h-36 mb-5">
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-brand-accent/30 animate-spin-slow"></div>
+                        <img src="https://ui-avatars.com/api/?name=President&background=06b6d4&color=fff&size=200" 
+                             class="w-full h-full rounded-full object-cover p-1 border-4 border-brand-accent/10 group-hover:border-brand-accent transition-colors profile-img">
+                    </div>
+                    <div class="font-mono text-brand-accent text-xs font-bold uppercase tracking-widest mb-1">Student Lead</div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Nirrav Sawla</h3>
+                    <span class="px-4 py-1.5 bg-brand-accent/10 text-brand-accent font-bold rounded-full text-xs border border-brand-accent/30">PRESIDENT</span>
+                </div>
+
+                <div class="tech-card group rounded-2xl p-8 flex flex-col items-center text-center" style="--glow-color: #8b5cf6;">
+                    <div class="relative w-32 h-32 md:w-36 md:h-36 mb-5">
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-brand-secondary/30 animate-spin-slow" style="animation-direction: reverse;"></div>
+                        <img src="https://ui-avatars.com/api/?name=Vice+President&background=8b5cf6&color=fff&size=200" 
+                             class="w-full h-full rounded-full object-cover p-1 border-4 border-brand-secondary/10 group-hover:border-brand-secondary transition-colors profile-img">
+                    </div>
+                    <div class="font-mono text-brand-secondary text-xs font-bold uppercase tracking-widest mb-1">Second Command</div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Rahul Inamati</h3>
+                    <span class="px-4 py-1.5 bg-brand-secondary/10 text-brand-secondary font-bold rounded-full text-xs border border-brand-secondary/30">VICE PRESIDENT</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="animate-fade-in-up" style="animation-delay: 0.3s;">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-blue-500/50 flex-grow"></div>
+                <div class="px-4 py-1 rounded-full bg-slate-900 border border-slate-700 text-white font-bold text-sm md:text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-server text-blue-400"></i> DOMAIN COMMAND
+                </div>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-purple-500/50 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+                
+                <div class="relative">
+                    <div class="absolute left-6 top-10 bottom-10 w-[2px] bg-gradient-to-b from-blue-500/50 to-transparent hidden lg:block"></div>
+                    
+                    <h4 class="text-blue-400 font-bold font-mono mb-6 text-center lg:text-left flex items-center justify-center lg:justify-start gap-2">
+                        <i class="fa-solid fa-code"></i> DEVELOPMENT WING
+                    </h4>
+
+                    <div class="space-y-6">
+                        <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6 relative z-10" style="--glow-color: #3b82f6;">
+                            <img src="https://ui-avatars.com/api/?name=Dev+Head&background=3b82f6&color=fff&size=200" 
+                                 class="w-24 h-24 rounded-2xl object-cover profile-img shadow-lg shadow-blue-500/20">
+                            <div class="text-center sm:text-left">
+                                <h5 class="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">Soujas Mane</h5>
+                                <div class="flex items-center justify-center sm:justify-start gap-2 mt-1">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                                    <span class="text-blue-400 text-xs font-bold font-mono uppercase tracking-wider">Head of Development</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-card group rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-5 relative z-10 ml-0 lg:ml-12 border-l-4 border-blue-500/20" style="--glow-color: #60a5fa;">
+                            <img src="https://ui-avatars.com/api/?name=Dev+Co&background=60a5fa&color=fff&size=200" 
+                                 class="w-20 h-20 rounded-2xl object-cover profile-img">
+                            <div class="text-center sm:text-left">
+                                <h5 class="text-xl font-bold text-white">Jay Tiwari</h5>
+                                <span class="text-blue-300 text-xs font-bold font-mono uppercase tracking-wider">Co-Head Development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute right-6 top-10 bottom-10 w-[2px] bg-gradient-to-b from-purple-500/50 to-transparent hidden lg:block"></div>
+
+                    <h4 class="text-purple-400 font-bold font-mono mb-6 text-center lg:text-right flex items-center justify-center lg:justify-end gap-2">
+                        MANAGEMENT WING <i class="fa-solid fa-briefcase"></i>
+                    </h4>
+
+                    <div class="space-y-6">
+                        <div class="tech-card group rounded-2xl p-6 flex flex-col sm:flex-row-reverse items-center gap-6 relative z-10" style="--glow-color: #a855f7;">
+                            <img src="https://ui-avatars.com/api/?name=Mgmt+Head&background=a855f7&color=fff&size=200" 
+                                 class="w-24 h-24 rounded-2xl object-cover profile-img shadow-lg shadow-purple-500/20">
+                            <div class="text-center sm:text-right">
+                                <h5 class="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">Omkar More</h5>
+                                <div class="flex items-center justify-center sm:justify-end gap-2 mt-1">
+                                    <span class="text-purple-400 text-xs font-bold font-mono uppercase tracking-wider">Head of Management</span>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-card group rounded-2xl p-5 flex flex-col sm:flex-row-reverse items-center gap-5 relative z-10 mr-0 lg:mr-12 border-r-4 border-purple-500/20" style="--glow-color: #c084fc;">
+                            <img src="https://ui-avatars.com/api/?name=Mgmt+Co&background=c084fc&color=fff&size=200" 
+                                 class="w-20 h-20 rounded-2xl object-cover profile-img">
+                            <div class="text-center sm:text-right">
+                                <h5 class="text-xl font-bold text-white">Nishant Jagdale</h5>
+                                <span class="text-purple-300 text-xs font-bold font-mono uppercase tracking-wider">Co-Head Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="animate-fade-in-up" style="animation-delay: 0.4s;">
+            <div class="text-center mb-8">
+                <span class="text-xs font-mono text-slate-500 uppercase tracking-[0.3em]">/// OPERATIONAL NODES ///</span>
+                <h3 class="text-xl font-bold text-white mt-2">Functional Leads</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="tech-card group rounded-xl p-6 flex flex-col items-center hover:-translate-y-2 transition-transform" style="--glow-color: #94a3b8;">
+                    <div class="relative w-20 h-20 mb-4">
+                        <div class="absolute inset-0 bg-slate-500/20 rounded-full blur-md group-hover:bg-slate-500/40 transition-colors"></div>
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=64748b&color=fff&size=150" 
+                             class="w-full h-full rounded-full border-2 border-slate-500 profile-img relative z-10">
+                    </div>
+                    <h5 class="text-lg font-bold text-white">Sameer Khan</h5>
+                    <div class="mt-2 px-3 py-1 rounded bg-slate-500/10 border border-slate-500/30">
+                        <p class="text-[10px] text-slate-300 font-bold uppercase tracking-wide">Admin Lead</p>
+                    </div>
+                </div>
+
+                <div class="tech-card group rounded-xl p-6 flex flex-col items-center hover:-translate-y-2 transition-transform" style="--glow-color: #fb923c;">
+                    <div class="relative w-20 h-20 mb-4">
+                        <div class="absolute inset-0 bg-orange-500/20 rounded-full blur-md group-hover:bg-orange-500/40 transition-colors"></div>
+                        <img src="https://ui-avatars.com/api/?name=PR&background=f97316&color=fff&size=150" 
+                             class="w-full h-full rounded-full border-2 border-orange-500 profile-img relative z-10">
+                    </div>
+                    <h5 class="text-lg font-bold text-white">Maanit Sharma</h5>
+                    <div class="mt-2 px-3 py-1 rounded bg-orange-500/10 border border-orange-500/30">
+                        <p class="text-[10px] text-orange-400 font-bold uppercase tracking-wide">PR Lead</p>
+                    </div>
+                </div>
+
+                <div class="tech-card group rounded-xl p-6 flex flex-col items-center hover:-translate-y-2 transition-transform" style="--glow-color: #f472b6;">
+                    <div class="relative w-20 h-20 mb-4">
+                        <div class="absolute inset-0 bg-pink-500/20 rounded-full blur-md group-hover:bg-pink-500/40 transition-colors"></div>
+                        <img src="https://ui-avatars.com/api/?name=Social&background=ec4899&color=fff&size=150" 
+                             class="w-full h-full rounded-full border-2 border-pink-500 profile-img relative z-10">
+                    </div>
+                    <h5 class="text-lg font-bold text-white">Vishal Borana</h5>
+                    <div class="mt-2 px-3 py-1 rounded bg-pink-500/10 border border-pink-500/30">
+                        <p class="text-[10px] text-pink-400 font-bold uppercase tracking-wide">Social Media</p>
+                    </div>
+                </div>
+
+                <div class="tech-card group rounded-xl p-6 flex flex-col items-center hover:-translate-y-2 transition-transform" style="--glow-color: #22d3ee;">
+                    <div class="relative w-20 h-20 mb-4">
+                        <div class="absolute inset-0 bg-cyan-500/20 rounded-full blur-md group-hover:bg-cyan-500/40 transition-colors"></div>
+                        <img src="https://ui-avatars.com/api/?name=Creative&background=06b6d4&color=fff&size=150" 
+                             class="w-full h-full rounded-full border-2 border-cyan-500 profile-img relative z-10">
+                    </div>
+                    <h5 class="text-lg font-bold text-white">Pujan Sutar</h5>
+                    <div class="mt-2 px-3 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">
+                        <p class="text-[10px] text-cyan-400 font-bold uppercase tracking-wide">Creative Lead</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="animate-fade-in-up pb-12" style="animation-delay: 0.5s;">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-green-500/50 flex-grow"></div>
+                <div class="px-4 py-1 rounded-full bg-slate-900 border border-slate-700 text-white font-bold text-sm md:text-lg flex items-center gap-2 whitespace-nowrap opacity-90">
+                    <i class="fa-solid fa-database text-green-500"></i> CORE MEMBERS(TY)
+                </div>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-green-500/50 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="tech-card group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-2 transition-transform" style="--glow-color: #22c55e;">
+                    <div class="relative w-24 h-24 mb-5">
+                        <div class="absolute -inset-2 border border-dashed border-green-500/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <img src="https://ui-avatars.com/api/?name=Core+1&background=22c55e&color=fff&size=200" 
+                             class="w-full h-full object-cover rounded-full border-2 border-green-500/50 profile-img relative z-10 shadow-lg shadow-green-900/50">
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Ankit Prajapati</h5>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-green-500/10 border border-green-500/20 mt-2">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <p class="text-[10px] text-green-400 font-bold font-mono uppercase tracking-wide">Senior Advisor</p>
+                    </div>
+                </div>
+
+                <div class="tech-card group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-2 transition-transform" style="--glow-color: #22c55e;">
+                    <div class="relative w-24 h-24 mb-5">
+                        <div class="absolute -inset-2 border border-dashed border-green-500/30 rounded-full animate-[spin_10s_linear_infinite]" style="animation-delay: -2s;"></div>
+                        <img src="https://ui-avatars.com/api/?name=Core+2&background=22c55e&color=fff&size=200" 
+                             class="w-full h-full object-cover rounded-full border-2 border-green-500/50 profile-img relative z-10 shadow-lg shadow-green-900/50">
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Sahil Yadav</h5>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-green-500/10 border border-green-500/20 mt-2">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <p class="text-[10px] text-green-400 font-bold font-mono uppercase tracking-wide">Senior Advisor</p>
+                    </div>
+                </div>
+
+                <div class="tech-card group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-2 transition-transform" style="--glow-color: #22c55e;">
+                    <div class="relative w-24 h-24 mb-5">
+                        <div class="absolute -inset-2 border border-dashed border-green-500/30 rounded-full animate-[spin_10s_linear_infinite]" style="animation-delay: -4s;"></div>
+                        <img src="https://ui-avatars.com/api/?name=Core+3&background=22c55e&color=fff&size=200" 
+                             class="w-full h-full object-cover rounded-full border-2 border-green-500/50 profile-img relative z-10 shadow-lg shadow-green-900/50">
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Anaya Powar</h5>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-green-500/10 border border-green-500/20 mt-2">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <p class="text-[10px] text-green-400 font-bold font-mono uppercase tracking-wide">Senior Advisor</p>
+                    </div>
+                </div>
+
+                <div class="tech-card group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-2 transition-transform" style="--glow-color: #22c55e;">
+                    <div class="relative w-24 h-24 mb-5">
+                        <div class="absolute -inset-2 border border-dashed border-green-500/30 rounded-full animate-[spin_10s_linear_infinite]" style="animation-delay: -6s;"></div>
+                        <img src="https://ui-avatars.com/api/?name=Core+4&background=22c55e&color=fff&size=200" 
+                             class="w-full h-full object-cover rounded-full border-2 border-green-500/50 profile-img relative z-10 shadow-lg shadow-green-900/50">
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1"> Kushi Pandey</h5>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-green-500/10 border border-green-500/20 mt-2">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <p class="text-[10px] text-green-400 font-bold font-mono uppercase tracking-wide">Senior Advisor</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto py-6 text-center text-slate-500 text-xs font-mono border-t border-white/5 relative z-10 bg-brand-dark/90 backdrop-blur-md">
+        © 2024 Dev Club TRCAC.
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('tech-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const mouse = { x: -1000, y: -1000 };
+        const spacing = 35; // Space between dots
+        const hoverRadius = 150; 
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let x = 0; x < width; x += spacing) {
+                for (let y = 0; y < height; y += spacing) {
+                    particles.push({
+                        x: x + (Math.random() - 0.5) * 5,
+                        y: y + (Math.random() - 0.5) * 5,
+                        originX: x, originY: y,
+                        color: 'rgba(6, 182, 212, 0.1)' 
+                    });
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                const dx = mouse.x - p.x;
+                const dy = mouse.y - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                let size = 1.5;
+                let color = 'rgba(6, 182, 212, 0.1)';
+                
+                if (distance < hoverRadius) {
+                    const intensity = 1 - (distance / hoverRadius);
+                    size = 1.5 + (intensity * 2); 
+                    color = `rgba(6, 182, 212, ${0.2 + intensity * 0.6})`; 
+                    p.x -= dx * 0.02 * intensity; // Subtle push
+                    p.y -= dy * 0.02 * intensity;
+                } else {
+                    p.x += (p.originX - p.x) * 0.05; // Return to grid
+                    p.y += (p.originY - p.y) * 0.05;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        resize();
+        animate();
+
+
+    function toggleFaculty() {
+        const moreSection = document.getElementById('more-faculty');
+        const btnText = document.getElementById('view-more-text');
+        const btnIcon = document.getElementById('view-more-icon');
+
+        // Check if the section is currently hidden
+        if (moreSection.classList.contains('hidden')) {
+            
+            // --- OPEN ACTION ---
+            moreSection.classList.remove('hidden');
+            
+            // Add animation class for a smooth entry
+            moreSection.classList.add('animate-fade-in-up');
+            
+            // Update Button UI
+            btnText.innerText = "View Less";
+            btnIcon.classList.remove('fa-chevron-down');
+            btnIcon.classList.add('fa-chevron-up');
+            
+        } else {
+            
+            // --- CLOSE ACTION ---
+            moreSection.classList.add('hidden');
+            
+            // Update Button UI
+            btnText.innerText = "View All Faculty";
+            btnIcon.classList.remove('fa-chevron-up');
+            btnIcon.classList.add('fa-chevron-down');
+            
+            // Optional: Scroll slightly up so the user isn't lost
+            document.getElementById('more-faculty').previousElementSibling.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    </script>
+</body>
+</html>
